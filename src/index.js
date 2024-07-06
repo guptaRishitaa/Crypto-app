@@ -5,11 +5,16 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
 // import 'antd/dist/antd.css';
+import { Provider } from 'react-redux';
+import store from './app/store'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  // below we are wrapping our app with  a router and also with a provider
   <Router>
+    <Provider store={store}>
     <App />
+    </Provider>
   </Router>,
   document.getElementById('root')
 );

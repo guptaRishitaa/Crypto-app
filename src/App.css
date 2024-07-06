@@ -305,6 +305,10 @@ width: 70%;
 .news-image-container .img{
   width:100px;
   height:100px;
+  /* object-fit: cover; */
+  /* max-height: 10px;
+  max-width: 10px; */
+
 }
 .news-card p{
   color: black;
