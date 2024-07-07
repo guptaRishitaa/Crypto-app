@@ -11,7 +11,8 @@ const baseUrl =  'https://coinranking1.p.rapidapi.com';
 
 const createRequest = (url) =>({
     url,
-    headers:cryptoApiHeaders
+    headers:cryptoApiHeaders,
+    
 })
 export const cryptoApi = createApi({
     // we have to provide a name what is this reducer for, we can giev any name here
@@ -23,6 +24,9 @@ export const cryptoApi = createApi({
         // these are the names of the endpoints, can be named anything we want
         getCryptos : builder.query({
             query:(count) => createRequest(`/coins?limit=${count}`)
+        }),
+        getCryptoDetails: builder.query({
+            query: (uuid) => createRequest(`/coin/${uuid}`),
         })
     })
 
@@ -30,6 +34,6 @@ export const cryptoApi = createApi({
 
 export const {
     // this is a kind of hook that we have created for ourselves
-    useGetCryptosQuery,
+    useGetCryptosQuery, useGetCryptoDetailsQuery
 } = cryptoApi;
 
