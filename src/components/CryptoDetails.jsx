@@ -1,4 +1,4 @@
-import { Col, Select, Typography } from "antd";
+import { Col, Row, Select, Typography } from "antd";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetCryptoDetailsQuery } from "../services/cryptoApi";
@@ -14,6 +14,8 @@ import {
   ThunderboltOutlined,
   TrophyOutlined,
 } from "@ant-design/icons";
+import Cryptocurrencies from "./Cryptocurrencies";
+import HTMLReactParser from "html-react-parser/lib/index";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -33,11 +35,11 @@ const CryptoDetails = () => {
       icon: <DollarCircleOutlined />,
     },
     { title: "Rank", value: cryptoDetails?.rank, icon: <NumberOutlined /> },
-    {
-      title: "24h Volume",
-      value: `$ ${cryptoDetails?.volume && millify(cryptoDetails?.volume)}`,
-      icon: <ThunderboltOutlined />,
-    },
+    // {
+    //   title: "24h Volume",
+    //   value: `$ ${cryptoDetails?.volume && millify(cryptoDetails?.volume)}`,
+    //   icon: <ThunderboltOutlined />,
+    // },
     {
       title: "Market Cap",
       value: `$ ${
@@ -92,7 +94,7 @@ const CryptoDetails = () => {
     },
   ];
 
-  console.log(data);
+  console.log("cryptoDetails ", cryptoDetails);
 
   return (
     <Col className="coin-detail-container">
@@ -101,7 +103,7 @@ const CryptoDetails = () => {
           {cryptoDetails?.name} ({cryptoDetails?.symbol}) Price
         </Title>
         <p>
-          {cryptoDetails.name} live price in US Dollars. View value statistics,
+          {cryptoDetails?.name} live price in US Dollars. View value statistics,
           market cap and supply.
         </p>
       </Col>
@@ -120,21 +122,60 @@ const CryptoDetails = () => {
         <Col className="coin-value-statistics">
           <Col className="coin-value-statistics-heading">
             <Title level={3} className="coin-details-heading">
-              {cryptoDetails.name} Value Statistics
+              {cryptoDetails?.name} Value Statistics
             </Title>
-            <p>An Overview showing the stats of {cryptoDetails.name}</p>
+            <p>An Overview showing the stats of {cryptoDetails?.name}</p>
           </Col>
-          {stats.map(({icon, title, value})=>(
-            
+          {stats.map(({ icon, title, value }) => (
             <Col className="coin-stats">
               <Col className="coin-stats-name">
-              <Text>{icon}</Text>
-              <Text>
-                {title}
-              </Text>
+                <Text>{icon}</Text>
+                <Text>{title}</Text>
               </Col>
-
+              <Text className="stats"> {value}</Text>
             </Col>
+          ))}
+        </Col>
+
+        <Col className="other-stats-info">
+          <Col className="coin-value-statistics-heading">
+            <Title level={3} className="coin-details-heading">
+              Other Statistics
+            </Title>
+            <p>An Overview showing the stats of all Cryptocurrencies</p>
+          </Col>
+          {genericStats.map(({ icon, title, value }) => (
+            <Col className="coin-stats">
+              <Col className="coin-stats-name">
+                <Text>{icon}</Text>
+                <Text>{title}</Text>
+              </Col>
+              <Text className="stats"> {value}</Text>
+            </Col>
+          ))}
+        </Col>
+      </Col>
+      <Col className="coin-desc-link">
+        <Row className="coin-desc">
+          <Title level={3} className="coin-details-heading">
+            What is {cryptoDetails.name}
+          </Title>
+
+          {HTMLReactParser(cryptoDetails.description)}
+        </Row>
+        <Col className="coin-links">
+          <Title level={3} className="coin-details-heading">
+            {cryptoDetails.name} Links
+          </Title>
+          {cryptoDetails.links.map((link) => (
+            <Row className="coin-link" key={link.name}>
+              <Title className="link-name" level={5}>
+                {link.type}
+              </Title>
+              <a href={link.url} target="blank" rel="noreferrer">
+{link.name}
+              </a>
+            </Row>
           ))}
         </Col>
       </Col>
