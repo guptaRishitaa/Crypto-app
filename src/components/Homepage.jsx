@@ -5,6 +5,7 @@ import millify from "millify";
 import { Link } from "react-router-dom";
 import Cryptocurrencies from "./Cryptocurrencies";
 import News from "./News";
+import Loader from "./Loader";
 
 const { Title } = Typography;
 
@@ -14,7 +15,7 @@ const Homepage = () => {
 
   console.log(data);
 
-  if (isFetching) return "Loading..";
+  if (isFetching) return <Loader/>;
   return (
     <>
       <Title level={2} className="heading">

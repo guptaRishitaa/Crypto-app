@@ -25,6 +25,10 @@ export const cryptoApi = createApi({
         getCryptos : builder.query({
             query:(count) => createRequest(`/coins?limit=${count}`)
         }),
+        getExchanges : builder.query({
+            query:() => createRequest(`/exchanges`)
+        }),
+        
         getCryptoDetails: builder.query({
             query: (uuid) => createRequest(`/coin/${uuid}`),
         }),
@@ -38,6 +42,7 @@ export const cryptoApi = createApi({
 
 export const {
     // this is a kind of hook that we have created for ourselves
-    useGetCryptosQuery, useGetCryptoDetailsQuery, useGetCryptoHistoryQuery
+    useGetCryptosQuery, useGetCryptoDetailsQuery, useGetCryptoHistoryQuery,  useGetExchangesQuery
+
 } = cryptoApi;
 

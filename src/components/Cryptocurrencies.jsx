@@ -3,6 +3,7 @@ import { useGetCryptosQuery } from '../services/cryptoApi'
 import millify from 'millify';
 import { Card, Col, Input, Row } from 'antd';
 import { Link } from 'react-router-dom';
+import Loader from './Loader';
 
 const Cryptocurrencies = ({simplified}) => {
 
@@ -24,7 +25,7 @@ const Cryptocurrencies = ({simplified}) => {
   }, [cryptosList, searchTerm]);
   // here this means that the function inside useEffect will get executed whenever cryptosList or searchTerm changes
 
-  if(isFetching) return "Loading...";
+  if(isFetching) return <Loader/> ;
   
   return (
     <React.Fragment>
