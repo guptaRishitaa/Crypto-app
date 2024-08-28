@@ -27,6 +27,10 @@ export const cryptoApi = createApi({
         }),
         getCryptoDetails: builder.query({
             query: (uuid) => createRequest(`/coin/${uuid}`),
+        }),
+        getCryptoHistory: builder.query({
+            // here we are passing an object that has the id and the time period
+            query: ({uuid, timePeriod}) => createRequest(`/coin/${uuid}/history?timePeriod=${timePeriod}`),
         })
     })
 
@@ -34,6 +38,6 @@ export const cryptoApi = createApi({
 
 export const {
     // this is a kind of hook that we have created for ourselves
-    useGetCryptosQuery, useGetCryptoDetailsQuery
+    useGetCryptosQuery, useGetCryptoDetailsQuery, useGetCryptoHistoryQuery
 } = cryptoApi;
 
