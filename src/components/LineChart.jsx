@@ -46,7 +46,7 @@ const LineChart = ({coinHistory, currentPrice, coinName }) => {
             yAxes :[
                 {
                     ticks: {
-                        beginAtZero: true
+                        beginAtZero: true,
                     }
                 }
             ]
